@@ -1,0 +1,4 @@
+1,mmmm,SMS,1
+2,dddd,Email,2
+3,mmmm,Email,1
+4,;lhnl;knl,SMS,1

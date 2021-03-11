@@ -1,0 +1,54 @@
+<?php
+//session_start();
+if (isset($_SESSION['username'])): ?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="layout.css">
+    <title>PHP Assignment 3</title>
+</head>
+<body class="body">
+    <div class="container">
+        <a href="logout.php" class="logout">Logout</a><br> 
+        <div class="header"><h4 class="welcome">Welcome<?php echo " ".$_SESSION['username'];?></h4></div>
+
+        <div class="image">
+            <img src="<?php echo " ".$_SESSION['image'];?>" class="pic">
+        </div>
+
+        <div class="nav">
+            <p>Clients Manager</p>                
+                        <a href="?page=Client_Manager&action=Add">Add Clients</a><br>
+                        <a href="?page=Client_Manager&action=View">View Clients</a><br>
+            <p>Notification Manager</p>
+                        <a href="?page=Notification_Manager&action=Add">Add Notification</a><br>
+                        <a href="?page=Notification_Manager&action=View">View Notification</a><br>
+            <p>Client Notification</p>
+                        <a href="?page=C_N_Manager&action=Add">Add Client Notification</a><br>
+                        <a href="?page=C_N_Manager&action=View">View Client Notification</a><br>
+            <p>User Management</p>
+                        <a href="?page=User_Manager&action=Add">Add User</a><br>
+                        <a href="?page=User_Manager&action=View">View Users</a><br>
+        <!------------------------------------------------------>
+        </div>
+        <div class="view">
+            <?php
+            include $main_content;
+            ?>
+        </div>
+    </div>
+</body>
+</html>
+
+<?php else:?>
+<h2>You Are Not Permitted to Access This Area Directly</h2>
+<?php 
+header('REFRESH:3;URL=index.php');
+endif; 
+?>
+
+<?php
+//echo "<a href='/folder_view/vs.php?s=" . __FILE__ . "' target='_blank' class='viewsource' style='color:#a3d0f0;'>view source</a>";
+?>

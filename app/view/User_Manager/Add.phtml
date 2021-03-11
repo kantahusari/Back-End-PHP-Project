@@ -1,0 +1,42 @@
+<h1>Add User</h1>
+<?php
+include 'dbh.php';
+//--- sign up form values
+$sql1="SELECT * FROM position";
+$fetch1= mysqli_query($conn, $sql1);
+$sql2="SELECT * FROM ustatus";
+$fetch2= mysqli_query($conn, $sql2);
+?>
+<div>
+<h4><?php echo $_SESSION['message'];?></h4>
+</div>
+<form action="?page=User_Manager&action=Add" method="post" enctype="multipart/form-data">
+First Name: *<input type="text" name="fname"><br>
+Last Name:  *<input type="text" name="lname"><br>
+Email:      *<input type="email" name="email"><br>
+Cell Phone: *<input type="text" name="cell"><br>
+Position:   *<select name="position"><br>
+            <option value="">Choose...</option>
+            <?php
+            while ($row1= mysqli_fetch_array($fetch1)) {
+            echo '<option value="'.$row1['pid'].'">'.$row1['pname'].'</option>';
+            }
+            ?>
+            </select><br>
+Username:   <input type="text" name="susername"><br>
+Password:   <input type="password" name="supassword"><br>
+Confirm Password:   <input type="password" name="rsupassword"><br>
+Status:     <select name="status">
+            <option value="">Choose...</option>
+            <?php
+            while ($row2= mysqli_fetch_array($fetch2)) {
+            echo '<option value="'.$row2['ustatid'].'">'.$row2['ustatname'].'</option>';
+            }
+            ?>
+            </select><br>
+Upload Image: <input type="file" name="image"><br>
+<input type="submit" value="signup" name="signup"><br>
+</form>
+<?php
+//echo "<a href='/folder_view/vs.php?s=" . __FILE__ . "' target='_blank' class='viewsource' style='color:#a3d0f0;'>view source</a>";
+?>

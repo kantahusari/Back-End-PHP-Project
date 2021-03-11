@@ -1,0 +1,38 @@
+<h1>Add Client Notification</h1>
+<?php
+include 'dbh.php';
+$_SESSION['message']='';
+$sql="SELECT * FROM client WHERE status=1";
+$fetch= mysqli_query($conn, $sql);
+
+$sql1="SELECT * FROM notification WHERE nstatus=1";
+$fetch1= mysqli_query($conn, $sql1);
+?>
+
+<form action="?page=C_N_Manager&action=Add" method="post">
+<input type="hidden" name='id'><br>
+Select Client:<select name="client" >
+              <option value="">Choose...</option>
+              <?php
+              while ($row= mysqli_fetch_array($fetch)) {
+              echo '<option value="'.$row['cid'].'">'.$row['company'].'</option>';
+              }
+              ?>
+              </select><br>
+Select Notification:<select name="note" >
+                    <option value="">Choose...</option>
+                    <?php
+                    while ($row1= mysqli_fetch_array($fetch1)) {
+                    echo '<option value="'.$row1['nid'].'">'.$row1['content'].'</option>';
+                    }
+                    ?>
+                    </select><br>
+Select Start Date :<input type="date" name="date"><br>
+Select Start Time :<input type="time" name="time"><br>
+Repeat Every :<input type="number" name="rep"><br>
+<input type="submit" value="submit"><br>
+</form>
+
+<?php
+//echo "<a href='/folder_view/vs.php?s=" . __FILE__ . "' target='_blank' class='viewsource' style='color:#a3d0f0;'>view source</a>";
+?>

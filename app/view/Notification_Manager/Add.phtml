@@ -1,0 +1,33 @@
+<h1>Add Notification</h1>
+<?php
+include 'dbh.php';
+$_SESSION['message']='';
+$sqltype="SELECT * FROM ntype";
+$fetchtype= mysqli_query($conn, $sqltype);
+$sqlstatus="SELECT * FROM nstat";
+$fetchstatus= mysqli_query($conn, $sqlstatus);
+?>
+<form action="?page=Notification_Manager&action=Add" method="post">
+<input type="hidden" name='id'><br>
+Note Type<select name="type">
+<option value="">Choose...</option>
+        <?php
+        while ($row1= mysqli_fetch_array($fetchtype)) {
+        echo '<option value="'.$row1['ntypeid'].'">'.$row1['ntype'].'</option>';
+        }
+        ?>
+</select><br>
+Content:<input type="text" name='content'><br>
+Status: <select name="stat">
+<option value="">Choose...</option>
+        <?php
+        while ($row2= mysqli_fetch_array($fetchstatus)) {
+        echo '<option value="'.$row2['nstatid'].'">'.$row2['nstatus'].'</option>';
+        }
+        ?>
+</select><br>
+<input type="submit">
+</form>
+<?php
+//echo "<a href='/folder_view/vs.php?s=" . __FILE__ . "' target='_blank' class='viewsource' style='color:#a3d0f0;'>view source</a>";
+?>

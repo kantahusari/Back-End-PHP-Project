@@ -1,0 +1,59 @@
+<h1>View Client Notification</h1>
+<?php
+include 'dbh.php';
+?>
+<style>
+div.scrollmenu {
+    width: 650px; 
+    height: 350px;
+    overflow: auto;
+    white-space: nowrap;
+}
+</style>
+<div class="scrollmenu">
+<table>
+<thead>	
+    <tr>
+            <th>Client</th>
+            <th>Notification</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Frequency</th>
+            <th>Edit</th>
+    </tr>
+</thead>
+    <tbody>
+     	<?php
+        $sql="SELECT * FROM clientnoti";
+	$query = mysqli_query($conn,$sql);
+	while($row = mysqli_fetch_array($query)){
+        $clientrecord=$row['cid'];
+        $client="SELECT company FROM client WHERE cid =$clientrecord";
+        $clientquery=mysqli_query($conn,$client);
+        $rowclient=mysqli_fetch_array($clientquery);
+            if ($row['cid']>0) {
+                $row['cid']=($rowclient['company']);
+            }
+        $noterecord=$row['nid'];
+        $note="SELECT content FROM notification WHERE nid =$noterecord";
+        $notequery=mysqli_query($conn,$note);
+        $rownote=mysqli_fetch_array($notequery);
+            if ($row['nid']>0) {
+                $row['nid']=($rownote['content']);
+            }
+echo 	'<tr id="'.$row['cnid'].'">
+        <td>'.$row['cid'].'</td>
+        <td>'.$row['nid'].'</td>
+        <td>'.$row['date'].'</td>
+        <td>'.$row['time'].'</td>
+        <td>'.$row['frequency'].'</td>
+        <td><a href="?page=C_N_Manager&action=update&id='.$row['cnid'].'">Edit</td>
+        </tr>';				
+	}
+	?>   
+    </tbody>
+    </table>
+    </div>
+<?php
+//echo "<a href='/folder_view/vs.php?s=" . __FILE__ . "' target='_blank' class='viewsource' style='color:#a3d0f0;'>view source</a>";
+?>

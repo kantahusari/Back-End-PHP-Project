@@ -1,0 +1,52 @@
+<?php 
+include 'dbh.php';
+?>
+<h1>View Notification</h1>
+<style>
+div.scrollmenu {
+    width: 650px; 
+    height: 350px;
+    overflow: auto;
+    white-space: nowrap;
+}
+</style>
+<div class="scrollmenu">
+<table>
+<thead>	
+    <tr>
+            <th>Type</th>
+            <th>Content</th>
+            <th>Status</th>
+            <th>Edit</th>
+    </tr>
+</thead>
+    <tbody>
+     	<?php
+        $sql="SELECT * FROM notification";
+	$query = mysqli_query($conn,$sql);
+	while($row = mysqli_fetch_array($query)){
+         if($row['typ']==1){
+             $row['typ']="sms";
+         } else {
+             $row['typ']="text";             
+         } 
+        if($row['nstatus']==1){
+            $row['nstatus']="Enabled";
+        } else {
+            $row['nstatus']="Disabled";             
+        }   
+echo 	'<tr id="'.$row['nid'].'">
+        <td>'.$row['typ'].'</td>
+        <td>'.$row['content'].'</td>
+        <td>'.$row['nstatus'].'</td>
+        <td><a href="?page=Notification_Manager&action=update&id='.$row['nid'].'">Edit</td>
+        </tr>';				
+	}
+	?>   
+    </tbody>
+    </table>
+    </div>
+
+<?php
+//echo "<a href='/folder_view/vs.php?s=" . __FILE__ . "' target='_blank' class='viewsource' style='color:#a3d0f0;'>view source</a>";
+?>

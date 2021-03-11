@@ -1,0 +1,34 @@
+<h1>Add Client</h1>
+<?php
+include 'dbh.php';
+$_SESSION['message']='';
+$sql="SELECT * FROM cstat";
+$fetch= mysqli_query($conn, $sql);
+?>
+<h4><?php echo $_SESSION['message']='';?></h4>
+<form action="?page=Client_Manager&action=Add" method="post">
+<input type="hidden" name="id">
+Company name:*<input type="text" name="c_name"><span><?php //echo $error;?></span><br>
+Business number:*<input type="text" name="b_num"><span><?php //echo $error;?></span><br>
+Contact’s first name:*<input type="text" name="f_name"><span><?php //echo $error;?></span><br>
+Contact’s last name:*<input type="text" name="l_name"><span><?php //echo $error;?></span><br>
+Phone number:*<input type="text" name="p_num"><span><?php //echo $error;?></span><br>
+Cell number:*<input type="text" name="c_num"><span><?php //echo $error;?></span><br>
+Website:<input type="text" name="w_site"><br>
+Status:<select name="stat">
+            <option value="">Choose...</option>
+            <?php
+            while ($row= mysqli_fetch_array($fetch)) {
+            echo '<option value="'.$row['cstatid'].'">'.$row['cstatus'].'</option>';
+            }
+            ?>
+<!--  
+<option value="1">Active</option><br>
+<option value="2">Archive</option><br>
+-->  
+       </select><br>
+<input type="submit" name="addclient">
+</form>
+<?php
+//echo "<a href='/folder_view/vs.php?s=" . __FILE__ . "' target='_blank' class='viewsource' style='color:#a3d0f0;'>view source</a>";
+?>

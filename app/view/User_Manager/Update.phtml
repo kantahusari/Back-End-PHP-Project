@@ -1,0 +1,47 @@
+<h1>Update Users</h1>
+<?php
+include 'dbh.php';
+$_SESSION['message']='';
+$sql1="SELECT * FROM position";
+$fetch1= mysqli_query($conn, $sql1);
+$sql2="SELECT * FROM ustatus";
+$fetch2= mysqli_query($conn, $sql2);
+        //uid,fname,lname,email,cellnumber,position,username,password,ustatus,image
+        //0   1       2    3     4          5          6       7       8        9
+?>
+<?php if (is_array($rowup)):?>
+
+<form action="?page=User_Manager&action=doUpdate" method="post" enctype="multipart/form-data">
+First Name: *<input type="text" name="fname" value="<?php echo $rowup[1];?>"><br>
+Last Name:  *<input type="text" name="lname" value="<?php echo $rowup[2];?>"><br>
+Email:      *<input type="email" name="email" value="<?php echo $rowup[3];?>"><br>
+Cell Phone: *<input type="text" name="cell" value="<?php echo $rowup[4];?>"><br>
+Position:   *<select name="position"><br>
+            <option value="">Choose...</option>
+            <?php
+            while ($row1= mysqli_fetch_array($fetch1)) {
+            echo '<option value="'.$row1['pid'].'">'.$row1['pname'].'</option>';
+            }
+            ?>
+            </select><br>
+Username:   <input type="text" name="susername" value="<?php echo $rowup[6];?>"><br>
+Password:   <input type="password" name="supassword" ><br>
+Confirm Password:   <input type="password" name="rsupassword" ><br>
+Status:     <select name="status">
+            <option value="">Choose...</option>
+            <?php
+            while ($row2= mysqli_fetch_array($fetch2)) {
+            echo '<option value="'.$row2['ustatid'].'">'.$row2['ustatname'].'</option>';
+            }
+            ?>
+            </select><br>
+Upload Image: <input type="file" name="image" ><br>
+<input type="hidden" name="id" value="<?php echo $rowup[0];?>">
+<input type="submit" value="Update" name="update"><br>
+</form>
+<?php else:?>
+<h1>No Notes To View</h1>
+<?php endif;?>
+<?php
+//echo "<a href='/folder_view/vs.php?s=" . __FILE__ . "' target='_blank' class='viewsource' style='color:#a3d0f0;'>view source</a>";
+?>
